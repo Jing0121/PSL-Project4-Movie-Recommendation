@@ -35,6 +35,26 @@ key_list = ['label', 'value']
 genres_dic = []
 for idx in range(0, len(genres_list)):
     genres_dic.append({key_list[0]: genres_list[idx], key_list[1]: genres_list[idx]})
+    
+# algrithm of recommander by genre
+def recc_genre_by_rating(movies, ratings, genre):
+    movies = movies.copy()
+    ratings = ratings.copy()
+    mov_rating = movies.set_index('MovieID').join(
+        ratings.set_index('MovieID'), how='left', on='MovieID')
+    mov_rating = mov_rating[mov_rating['Genres'].str.contains(genre)]
+    mov_rating['count'] = mov_rating['UserID'].groupby(
+        mov_rating['Title']).transform('count')
+
+    # only movies that received more number of ratings than 90% of all the movies in the genre are considered
+    cutoff = mov_rating['count'].quantile(0.8)
+    mov_rating = mov_rating[mov_rating['count'] >=
+                            cutoff].drop(['UserID', 'Timestamp'], axis=1)
+    # mov_rating_mean = mov_rating.groupby('Title').mean().sort_values(by=['Rating','count'], ascending=False)
+    mov_rating_mean = mov_rating.groupby('MovieID').mean().sort_values(
+        by=['Rating', 'count'], ascending=False).reset_index()
+    movies_list = list(mov_rating_mean['MovieID'])
+    return movies_list[:6]
 
 
 #reuseable component to display movies
@@ -184,12 +204,8 @@ app.layout = dbc.Tabs([dbc.Tab(tab1_content, label="Recommender by Genre"), dbc.
     Input(component_id='favorite_genre', component_property='value')
 )
 def update_movieID_list1(selected_genre):
-    # TODO: add system1 recommandation algorithm here
-    if selected_genre=='Comedy':
-        movieID_list = [1,1,1,1,1,1]
-        return display_movies(movieID_list)
-    else:
-        movieID_list = [1,1,1,2,2,2]
+    if selected_genre:
+        movieID_list = recc_genre_by_rating(movies, ratings, selected_genre)
         return display_movies(movieID_list)
     
 #update movieID_list for system2
