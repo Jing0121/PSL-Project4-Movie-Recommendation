@@ -175,7 +175,7 @@ tab2_content = html.Div(
 )
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.BOOTSTRAP])
-
+server = app.server
 app.layout = dbc.Tabs([dbc.Tab(tab1_content, label="Recommender by Genre"), dbc.Tab(tab2_content, label="Recommender by Rating"),])
 
 #update movieID_list for system1
