@@ -1,0 +1,9 @@
+venv
+*.pyc
+*.cfg
+.DS_Store
+.env
+etc/
+Lib/
+Scripts/
+share/
