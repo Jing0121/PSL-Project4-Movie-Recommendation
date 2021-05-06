@@ -59,9 +59,8 @@ def recc_genre_by_rating(movies, ratings, genre):
 
 #reuseable component to display movies
 def display_movies(movieID_list):
-    #the size of movieID_list should be 6 or greater than 6 -- TBD
-    if (len(movieID_list) < 6):
-        return html.P('the size of Movie List is smaller than 6')
+    if not movieID_list:
+        return html.P('No movies are recommended')
     
     cards = []
     for ID in movieID_list:
@@ -77,19 +76,19 @@ def display_movies(movieID_list):
             style={'width': '22rem'},
         )
         cards.append(movieCard)
-    cardsDIV = html.Div(
-        [
-            html.H2('Here are some movies you might like'),
-            dbc.Row(
-                [dbc.Col(cards[0]), dbc.Col(cards[1]), dbc.Col(cards[2])],
-                align="start",
-            ),
-            dbc.Row(
-                [dbc.Col(cards[3]), dbc.Col(cards[4]), dbc.Col(cards[5])],
-                align="start",
-            ),
-        ]
-    )
+    rows = []
+    cols = []
+    for index in range(len(movieID_list)):
+        if((index) % 3 == 2):
+            cols.append(dbc.Col(cards[index]))
+            rows.append(dbc.Row(cols, align="start"))
+            cols = []
+        else:
+            cols.append(dbc.Col(cards[index], width=4))
+    if cols:
+        rows.append(dbc.Row(cols, align="start"))
+
+    cardsDIV = html.Div(rows)
     return cardsDIV
 
 
