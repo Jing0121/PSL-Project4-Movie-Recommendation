@@ -212,8 +212,11 @@ tab1_content = html.Div(
                               ),
                      html.Div(className='eight columns div-for-charts bg-grey',
                               children=[
-                                  #html.H2('Here are some movies you might like'),
-                                  html.Div(id='movie_recommandation1')
+                                  dcc.Loading(
+                                    id="loading-1",
+                                    type="default",
+                                    children=html.Div(id="movie_recommandation1")
+                                   )
                               ])
                  ])
 
@@ -235,7 +238,11 @@ tab2_content = html.Div(
                            color="primary",
                      ),
                      dbc.Row(),
-                     html.Div(id='movie_recommandation2'),
+                     dcc.Loading(
+                        id="loading-1",
+                        type="default",
+                        children=html.Div(id="movie_recommandation2")
+                     ),
                  ])
 
     ]
