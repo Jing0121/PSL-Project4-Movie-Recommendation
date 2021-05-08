@@ -239,7 +239,7 @@ tab2_content = html.Div(
                      ),
                      dbc.Row(),
                      dcc.Loading(
-                        id="loading-1",
+                        id="loading-2",
                         type="default",
                         children=html.Div(id="movie_recommandation2")
                      ),
