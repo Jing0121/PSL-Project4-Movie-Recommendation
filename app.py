@@ -138,7 +138,7 @@ def display_movies(movieID_list):
 
 # reuseable component to displat movies to rate
 
-movieID_toRate_list = list(range(1, 41))
+movieID_toRate_list = list(range(1, 80))
 
 
 def display_movies_to_rate(movieID_toRate_list):
