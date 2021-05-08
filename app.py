@@ -112,7 +112,7 @@ def display_movies(movieID_list):
             [
                 dbc.CardImg(src=movies.loc[movies['MovieID']==ID, 'image_url'], top=True),
                 dbc.CardBody(
-                    html.P(movies.loc[ID, 'Title'], className="card-text")
+                    html.P(movies.loc[movies['MovieID']==ID, 'Title'], className="card-text")
                 ),
             ],
             color='info',
@@ -148,7 +148,7 @@ def display_movies_to_rate(movieID_toRate_list):
             [
                 dbc.CardImg(src=movies.loc[movies['MovieID']==ID, 'image_url'], top=True),
                 dbc.CardBody(
-                    html.P(movies.loc[ID, 'Title'], className="card-text")
+                    html.P(movies.loc[movies['MovieID']==ID, 'Title'], className="card-text")
                 ),
                 dcc.Slider(
                     id={
@@ -277,7 +277,7 @@ def update_movieID_list2(n, values):
     user_rating_list = []
     for (i, value) in enumerate(values):
         if value:
-            user_rating_list.append([i, value])
+            user_rating_list.append([i+1, value])
             print(user_rating_list)
     if len(user_rating_list) < 1:
         return html.P('Please rate above movies first')
