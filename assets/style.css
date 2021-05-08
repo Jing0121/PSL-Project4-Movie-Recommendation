@@ -618,26 +618,3 @@ a {
     margin: 0px;
   }
 }
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px !important;
-  display: block !important;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #1e1e1e !important;
-  border-radius: 10px !important;
-  display: block !important;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: transparent;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #d8d8d870 !important;
-}

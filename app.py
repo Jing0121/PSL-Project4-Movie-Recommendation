@@ -65,7 +65,7 @@ def recc_genre_by_rating(movies, ratings, genre):
 # algrithm of recommander by rating
 
 def similar_users(new_user_ratings, matrix, k=3):
-    #     https://towardsdatascience.com/build-a-user-based-collaborative-filtering-recommendation-engine-for-anime-92d35921f304
+    # https://towardsdatascience.com/build-a-user-based-collaborative-filtering-recommendation-engine-for-anime-92d35921f304
     # create a df of just the current user
     new_user_ratings = new_user_ratings.copy()
     other_users = matrix
@@ -97,12 +97,10 @@ def UBCF_recc_movies(ratings, similar_user_list, k=6):
     similar_ratings = similar_ratings[similar_ratings['count'] >= cutoff]
     movie_avg_ratings = similar_ratings.groupby('MovieID').mean(
     ).sort_values(by=['Rating'], ascending=False).reset_index()
-#     print(movie_avg_ratings)
     movies_list = list(movie_avg_ratings['MovieID'])
     return movies_list[:6]
 
 # reuseable component to display movies
-
 
 def display_movies(movieID_list):
     if not movieID_list:
@@ -139,8 +137,8 @@ def display_movies(movieID_list):
 
 
 # reuseable component to displat movies to rate
-# Do we want randomly to give movieID? How many movies do we want user to rate?--- TBD
-movieID_toRate_list = list(range(1, 21))
+
+movieID_toRate_list = list(range(0, 40))
 
 
 def display_movies_to_rate(movieID_toRate_list):
@@ -184,7 +182,7 @@ def display_movies_to_rate(movieID_toRate_list):
         else:
             cols.append(dbc.Col(cards[index]))
 
-    cardsDIV = html.Div(rows)
+    cardsDIV = cardsDIV = html.Div(style={'height':'650px', 'overflow-y':'auto','overflow-x':'hidden'},children=rows)
     return cardsDIV
 
 
